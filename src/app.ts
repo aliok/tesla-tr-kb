@@ -77,8 +77,9 @@
             return;
         }
 
-        // If the details element is currently closed (about to open), update hash
+        // If the details element is currently closed (about to open), collapse others and update hash
         if (!$details.attr("open")) {
+            $("details[open]").not($details).removeAttr("open");
             history.replaceState(null, "", "#" + id);
         }
     });

@@ -1,2 +1,6 @@
 node_modules/
 dist/
+chat-exports/
+chat-export-processor/output/messages.json
+chat-export-processor/output/batch-results/
+.env

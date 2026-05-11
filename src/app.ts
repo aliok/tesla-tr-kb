@@ -81,6 +81,11 @@
         if (!$details.attr("open")) {
             $("details[open]").not($details).removeAttr("open");
             history.replaceState(null, "", "#" + id);
+
+            // Scroll to the question after the browser lays out the content
+            setTimeout(() => {
+                $details[0].scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 100);
         }
     });
 

@@ -251,7 +251,42 @@ footer {
     border-top: 1px solid var(--color-border);
     color: var(--color-text-secondary);
     font-size: 0.85rem;
+}
+
+footer > p {
     text-align: center;
+}
+
+.about {
+    margin-bottom: 20px;
+}
+
+.about h3 {
+    font-size: 0.95rem;
+    color: var(--color-text);
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+.about h3:first-child {
+    margin-top: 0;
+}
+
+.about p {
+    margin-bottom: 8px;
+}
+
+.about ul {
+    padding-left: 20px;
+    margin-bottom: 8px;
+}
+
+.about li {
+    margin-bottom: 4px;
+}
+
+.about a {
+    color: var(--color-accent);
 }
 
 /* ---- Responsive: tablet and up ---- */

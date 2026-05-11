@@ -25,9 +25,10 @@ npx serve dist
 
 The build pipeline runs these steps in order:
 1. `clean` — removes `dist/`
-2. `copy` — copies HTML and CSS files from `src/` to `dist/`
+2. `copy` — copies HTML, CSS, and partial files from `src/` to `dist/`
 3. `compile` — compiles TypeScript (`src/app.ts` → `dist/app.js`)
-4. `generate-toc` — runs `scripts/generate-toc.js` to auto-generate the table of contents in `dist/index.html`
+4. `process-includes` — runs `scripts/process-includes.js` to replace `<!-- INCLUDE:name -->` markers with partial content
+5. `generate-toc` — runs `scripts/generate-toc.js` to auto-generate the table of contents in `dist/index.html`
 
 ## Content Authoring Rules
 
@@ -53,7 +54,7 @@ Examples of good IDs:
 
 1. Create a new `.html` file in `src/pages/`
 2. Filename should be lowercase kebab-case (e.g., `satin-alma.html`, `sarj.html`)
-3. Copy the structure from an existing page like `genel.html` as a template
+3. Copy the structure from an existing page like `acil-durum.html` as a template
 4. Update the `<h2>` title — this becomes the category name in the TOC
 5. The page will be automatically picked up by `generate-toc.js` during build
 
@@ -69,26 +70,17 @@ Page template structure:
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Tesla TR Bilgi Bankası</h1>
-            <nav><a href="../index.html">&larr; Ana Sayfa</a></nav>
-        </div>
-    </header>
+<!-- INCLUDE:header-page -->
     <main class="container">
         <h2>KATEGORI ADI</h2>
 
         <!-- Questions go here -->
 
     </main>
-    <footer class="container">
-        <p>Tesla TR Bilgi Bankası</p>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="../app.js"></script>
-</body>
-</html>
+<!-- INCLUDE:footer -->
 ```
+
+The `<!-- INCLUDE:header-page -->` and `<!-- INCLUDE:footer -->` markers are replaced at build time with shared HTML partials. See [HTML Include System](#html-include-system) below.
 
 ### Adding a New Question
 
@@ -129,6 +121,27 @@ src/pages/
 └── 04-servis.html
 ```
 
+## HTML Include System
+
+Shared HTML fragments (header, footer) are stored in `src/partials/` and injected at build time by `scripts/process-includes.js`.
+
+### How It Works
+
+1. Source HTML files use `<!-- INCLUDE:name -->` comment markers where shared content should appear
+2. During build, the `process-includes` step replaces each marker with the contents of `src/partials/name.html`
+3. Partials can use `{{ROOT}}` as a placeholder for the relative path to the site root — resolved to `""` for files in `dist/` and `"../"` for files in `dist/pages/`
+4. After processing, the `dist/partials/` directory is deleted (not needed in output)
+
+### Available Partials
+
+- `header-index.html` — header for the index page (with subtitle, no nav)
+- `header-page.html` — header for category pages (with back navigation link)
+- `footer.html` — shared footer with about section, scripts, and closing `</body></html>` tags
+
+### Editing Shared Content
+
+To change the header or footer, edit the partial file in `src/partials/`. The change will apply to all pages on the next build.
+
 ## How TOC Generation Works
 
 The script `scripts/generate-toc.js` runs during `npm run build`. It:
@@ -160,12 +173,18 @@ tesla-tr-kb/
 ├── .github/workflows/
 │   └── ci.yml                # GitHub Actions CI workflow
 ├── scripts/
-│   └── generate-toc.js       # TOC generation script (Node.js)
+│   ├── generate-toc.js       # TOC generation script (Node.js)
+│   └── process-includes.js   # HTML include/partial processor (Node.js)
 ├── src/
 │   ├── index.html            # Landing page with auto-generated TOC
 │   ├── styles.css            # All styles (mobile-first)
 │   ├── app.ts                # Frontend TypeScript (deep-linking, accordion UX)
+│   ├── partials/             # Shared HTML fragments (header, footer)
+│   │   ├── header-index.html
+│   │   ├── header-page.html
+│   │   └── footer.html
 │   └── pages/
-│       └── genel.html        # Example category page
+│       ├── acil-durum.html   # Acil Durum category page
+│       └── modeller.html     # Modeller category page
 └── dist/                     # Build output (gitignored)
 ```

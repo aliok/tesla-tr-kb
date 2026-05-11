@@ -5,11 +5,12 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist",
-    "copy": "mkdir -p dist/pages && cp src/index.html src/styles.css dist/ && cp src/pages/*.html dist/pages/",
+    "copy": "mkdir -p dist/pages dist/partials && cp src/index.html src/styles.css dist/ && cp src/pages/*.html dist/pages/ && cp src/partials/*.html dist/partials/",
     "compile": "tsc",
+    "process-includes": "node scripts/process-includes.js",
     "generate-toc": "node scripts/generate-toc.js",
-    "build": "npm run clean && npm run copy && npm run compile && npm run generate-toc",
-    "dev": "npm run build && npx serve dist"
+    "build": "npm run clean && npm run copy && npm run compile && npm run process-includes && npm run generate-toc",
+    "dev": "node scripts/dev.js"
   },
   "devDependencies": {
     "@types/jquery": "^3.5.31",

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batarya - Tesla TR Bilgi Bankası</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<!-- INCLUDE:header-page -->
+    <main class="container">
+        <h2>Batarya</h2>
+
+        <details id="lfp-nmc-farklari">
+            <summary>LFP ve NMC batarya arasındaki temel farklar nelerdir?</summary>
+            <div class="answer">
+                <p><strong>LFP (Lityum Demir Fosfat — LiFePO4):</strong></p>
+                <ul>
+                    <li>Katot malzemesi: Lityum, demir, fosfat. Kobalt ve nikel içermez.</li>
+                    <li>Hücre formatı: Prizmatik (dikdörtgen). Tedarikçi: CATL.</li>
+                    <li>Hücre nominal voltajı: 3,2V. Tam şarj voltajı: 3,65V.</li>
+                    <li>Enerji yoğunluğu düşüktür (~160 Wh/kg hücre seviyesinde). Aynı enerji için daha fazla hacim ve ağırlık gerekir.</li>
+                    <li>Daha düşük maliyetli (~98 $/kWh).</li>
+                    <li>Termal kaçak (thermal runaway) sıcaklığı: ~270°C. NMC'ye göre daha güvenlidir.</li>
+                    <li>Döngü ömrü: 3.000–10.000 tam şarj-deşarj döngüsü.</li>
+                </ul>
+
+                <p><strong>NMC (Nikel Mangan Kobalt — Li(NiMnCo)O2):</strong></p>
+                <ul>
+                    <li>Katot malzemesi: Nikel, mangan, kobalt (8:1:1 oranında), bazı varyantlarda alüminyum katkılı (NCMA).</li>
+                    <li>Hücre formatı: 2170 silindirik (21 mm çap, 70 mm uzunluk). Tedarikçi: LG Energy Solution.</li>
+                    <li>Hücre nominal voltajı: 3,6–3,7V. Tam şarj voltajı: 4,2–4,25V.</li>
+                    <li>Enerji yoğunluğu yüksektir. Aynı hacimde daha fazla enerji depolanır.</li>
+                    <li>Daha yüksek maliyetli (~113 $/kWh).</li>
+                    <li>Termal kaçak sıcaklığı: ~210°C.</li>
+                    <li>Döngü ömrü: 1.000–1.500 tam şarj-deşarj döngüsü.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details id="sicak-soguk-hava">
+            <summary>Sıcak ve soğuk havada batarya nasıl davranır?</summary>
+            <div class="answer">
+                <p><strong>Soğuk hava etkisi:</strong></p>
+                <ul>
+                    <li>Tüm elektrikli araçlarda soğuk hava menzili düşürür. Model Y'de donma noktası altında tipik olarak %20–30 menzil kaybı yaşanır. En kötü senaryoda (aşırı soğuk, kısa mesafeler, otoban hızları) %40'a kadar kayıp olabilir.</li>
+                    <li><strong>LFP soğukta daha fazla etkilenir.</strong> İç direnci artar, şarj kabulü düşer ve menzil kaybı NMC'ye göre daha belirgindir.</li>
+                    <li><strong>NMC soğukta daha iyi performans gösterir.</strong> Daha az menzil kaybı yaşanır ve hızlı şarj kabulü daha iyidir.</li>
+                </ul>
+
+                <p><strong>Soğuk havada yapılabilecekler:</strong></p>
+                <ul>
+                    <li><strong>Ön koşullandırma (preconditioning):</strong> Araç prize takılıyken yola çıkmadan 20–45 dakika önce kabini ve bataryayı ısıtın. Bu işlem batarya enerjisi yerine şebeke elektriğini kullanır.</li>
+                    <li><strong>Zamanlanmış kalkış (Scheduled Departure):</strong> Araç, belirlediğiniz saatte hazır olacak şekilde şarjı ve ısıtmayı otomatik zamanlayabilir.</li>
+                    <li><strong>Supercharger'a navigasyon:</strong> Rota olarak Supercharger seçildiğinde araç yol boyunca bataryayı otomatik olarak ön ısıtır.</li>
+                </ul>
+
+                <p><strong>Sıcak hava etkisi:</strong></p>
+                <ul>
+                    <li>Bataryanın optimum çalışma sıcaklığı 15–35°C arasıdır. Sıcak havada termal yönetim sistemi bataryayı soğutmak için çalışır.</li>
+                    <li>Aşırı sıcakta (40°C+) şarj hızı bataryayı korumak amacıyla otomatik olarak düşürülebilir.</li>
+                    <li>Model Y'de standart olarak bulunan ısı pompası hem ısıtma hem soğutma için kullanılır.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details id="batarya-omru">
+            <summary>Bataryanın ömrü ne kadardır?</summary>
+            <div class="answer">
+                <ul>
+                    <li><strong>LFP:</strong> 3.000–10.000 tam şarj-deşarj döngüsü. Günde bir tam döngü yapılsa bile 8–27 yıl arası kullanım ömrü sunar. LFP kimyası yapısal olarak çok kararlıdır ve yüksek döngü sayısına dayanır.</li>
+                    <li><strong>NMC:</strong> 1.000–1.500 tam şarj-deşarj döngüsü. Günde bir tam döngü ile 3–4 yıl gibi görünse de gerçek kullanımda günlük tam döngü yapılmaz; çoğu kullanıcı günde %20–30 arası tüketir. Pratikte 8–15 yıl kullanım ömrü beklenir.</li>
+                    <li>Tesla bataryaları için 8 yıl veya 192.000 km (hangisi önce gelirse) garanti sunmaktadır. Bu süre içinde batarya kapasitesinin %70'in altına düşmemesini garanti eder.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details id="batarya-sagligi">
+            <summary>Batarya sağlığı zamanla nasıl değişir?</summary>
+            <div class="answer">
+                <ul>
+                    <li><strong>NMC:</strong> İlk yılda yaklaşık %5 kapasite kaybı yaşanır, sonrasında yıllık ~%1 oranında yavaş bir düşüş devam eder. 320.000 km'de toplam ~%15 kapasite kaybı tipiktir. İlk kayıp daha hızlıdır çünkü hücrelerde ilk döngülerde koruyucu bir katman (SEI) oluşur.</li>
+                    <li><strong>LFP:</strong> İlk yılda yaklaşık %2–3 kapasite kaybı yaşanır, sonrasında yıllık ~%2–3 oranında devam eder. Bir taksi olarak kullanılan LFP Model Y, 178.000 km'de %92 kapasite korumuştur (neredeyse tamamen hızlı şarjla). 212.000 km'deki bir LFP Model 3'te yalnızca %4,88 menzil kaybı ölçülmüştür.</li>
+                    <li>Her iki kimya için de batarya sağlığını koruyan en önemli faktörler: aşırı sıcak ve soğuktan kaçınmak, önerilen şarj limitine uymak ve uzun süre %0 veya %100'de bırakmamaktır.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details id="sarj-onerileri">
+            <summary>Batarya tipine göre şarj önerileri nelerdir?</summary>
+            <div class="answer">
+                <p><strong>LFP bataryalı araçlar (Standard Range modeller):</strong></p>
+                <ul>
+                    <li>Tesla, günlük şarj limitinin <strong>%100</strong>'de tutulmasını önerir.</li>
+                    <li>Haftada en az bir kez %100'e şarj edilmelidir. Bu, batarya yönetim sisteminin (BMS) doğru kalibrasyon yapabilmesi için gereklidir.</li>
+                    <li>LFP hücrelerinin tam şarj voltajı (3,65V) düşük olduğundan %100'de tutmak bataryaya zarar vermez.</li>
+                    <li>%100'e şarj yapılmazsa araç ekranda hatırlatma gösterir.</li>
+                </ul>
+
+                <p><strong>NMC bataryalı araçlar (Long Range ve Performance modeller):</strong></p>
+                <ul>
+                    <li>Günlük şarj limiti en fazla <strong>%80</strong> olarak ayarlanmalıdır.</li>
+                    <li>%100 şarj yalnızca uzun yol öncesinde yapılmalı ve araç tam şarjda uzun süre bekletilmemelidir.</li>
+                    <li>NMC hücrelerinin tam şarj voltajı yüksektir (4,2–4,25V) ve bu seviyede sürekli tutmak kimyasal stres yaratarak batarya ömrünü kısaltır.</li>
+                    <li>Uzun süre %20'nin altında tutulması da önerilmez. Düşük şarj seviyesinde beklemek NMC hücrelerinde ek kimyasal stres yaratır.</li>
+                </ul>
+
+                <p><strong>Her iki tip için geçerli öneriler:</strong></p>
+                <ul>
+                    <li>Mümkünse aracı prize takılı bırakın. Tesla'nın termal yönetim sistemi prize takılıyken batarya sıcaklığını optimum aralıkta tutar.</li>
+                    <li>Bataryayı uzun süre %0'da bırakmayın. Düşük şarj seviyesinde uzun süre beklemek her iki kimya için de zararlıdır.</li>
+                    <li>Sürekli DC hızlı şarj (Supercharger) kullanımı batarya ömrünü AC ev şarjına göre daha fazla etkiler, ancak modern batarya yönetim sistemleri bu etkiyi büyük ölçüde minimize eder.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details id="sarj-hizlari">
+            <summary>Batarya tiplerine göre şarj hızları nasıl farklılık gösterir?</summary>
+            <div class="answer">
+                <p><strong>DC hızlı şarj (Supercharger):</strong></p>
+                <ul>
+                    <li><strong>LFP:</strong> Maksimum ~170–175 kW. %10'dan %80'e yaklaşık 32–38 dakika (V3 Supercharger). Şarj eğrisi düzdür — geniş bir şarj aralığında gücü nispeten sabit tutar.</li>
+                    <li><strong>NMC (LG 5L):</strong> Maksimum ~200–250 kW. %10'dan %80'e yaklaşık 27–30 dakika. Şarj eğrisi erken tepe yapar ve %30 civarından sonra düşmeye başlar.</li>
+                    <li><strong>NMC (LG 5M — Juniper Performance):</strong> Maksimum ~256 kW (%13 şarj seviyesinde). %10'dan %80'e yaklaşık 25 dakika. 5L'ye göre %25'ten fazla tepe güç artışı ve daha düz bir şarj eğrisi sunar.</li>
+                </ul>
+
+                <p><strong>AC şarj (ev/işyeri):</strong></p>
+                <ul>
+                    <li>Tüm Model Y'ler maksimum 11 kW AC şarj destekler (tek faz veya üç faz, pazara göre değişir).</li>
+                    <li>LFP (60–64 kWh): Boştan doluya yaklaşık 6–7 saat.</li>
+                    <li>NMC (78–85 kWh): Boştan doluya yaklaşık 8–9 saat.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details id="buffer">
+            <summary>Batarya buffer'ı (tampon bölgesi) nedir?</summary>
+            <div class="answer">
+                <p>Batarya yönetim sistemi (BMS), brüt kapasitenin bir kısmını kullanıma kapatır. Bu tampon bölge batarya hücrelerini aşırı şarj ve aşırı deşarjdan koruyarak ömrünü uzatır. Ekranda %0 görünse bile bataryada az miktarda enerji kalır; %100 görünse bile hücreler fiziksel maksimum voltaja ulaşmaz.</p>
+                <ul>
+                    <li><strong>LFP:</strong> Brüt kapasitenin yaklaşık %5–8'i buffer olarak ayrılır. LFP'nin voltaj eğrisi çok düz olduğundan BMS'in doğru şarj seviyesi hesaplayabilmesi için daha geniş bir tampon gerekir.</li>
+                    <li><strong>NMC:</strong> Brüt kapasitenin yaklaşık %3–7'si buffer olarak ayrılır. NMC'nin voltaj eğrisi daha belirgin olduğundan BMS şarj seviyesini daha kolay hesaplayabilir.</li>
+                </ul>
+                <p>Örneğin 64 kWh brüt kapasiteli bir LFP bataryada kullanılabilir kapasite yaklaşık 60,5 kWh'tır (~3,5 kWh buffer). 84 kWh brüt kapasiteli bir NMC bataryada kullanılabilir kapasite yaklaşık 82 kWh'tır (~2–3 kWh buffer).</p>
+            </div>
+        </details>
+
+        <details id="kalibrasyon">
+            <summary>Batarya kalibrasyonu nedir ve nasıl yapılır?</summary>
+            <div class="answer">
+                <p>Batarya yönetim sistemi (BMS), bataryanın gerçek kapasitesini ve şarj seviyesini doğru gösterebilmek için düzenli kalibrasyona ihtiyaç duyar. Kalibrasyon yapılmadığında gösterilen menzil gerçek menzilden farklı olabilir veya şarj seviyesi yanlış hesaplanabilir.</p>
+
+                <p><strong>LFP bataryalar için kalibrasyon:</strong></p>
+                <ul>
+                    <li>Kalibrasyon yalnızca <strong>DC hızlı şarj</strong> ile yapılabilir. Herhangi bir DC şarj istasyonu yeterlidir; Tesla Supercharger olması gerekmez.</li>
+                    <li>DC şarjda %100'e ulaştıktan sonra BMS kalibrasyonu başlar. İlk kalibrasyonda %99'dan sonra yaklaşık 30 dakika sürebilir (istasyonun verebildiği güçten bağımsız olarak). Sonraki kalibrasyonlarda bu süre kısalır.</li>
+                    <li>Kalibrasyon sıklığı süreyi etkiler: haftada bir yapılırsa %99'dan sonra yaklaşık 10 dakika, ayda bir yapılırsa 20 dakika sürebilir.</li>
+                    <li>LFP'nin voltaj eğrisi %20–80 aralığında çok düzdür (yalnızca ~0,1V fark). Bu nedenle BMS, şarj seviyesini doğru hesaplamak için %100 referans noktasına ihtiyaç duyar.</li>
+                    <li>Kalibrasyon yapılmazsa gösterge gerçekte enerji kalmış olsa bile %0 gösterebilir veya tam tersi olabilir.</li>
+                    <li>%100'e şarj yapılmadığında araç ekranda hatırlatma gösterir.</li>
+                </ul>
+
+                <p><strong>NMC bataryalar için kalibrasyon:</strong></p>
+                <ul>
+                    <li>NMC'nin voltaj eğrisi daha belirgin olduğundan BMS genellikle kalibrasyon için ek müdahaleye ihtiyaç duymaz.</li>
+                    <li>Ancak uzun süre dar bir şarj aralığında kullanılırsa (örneğin hep %50–80 arası) BMS'in hassasiyeti düşebilir. Bu durumda bir defaya mahsus %100'e şarj edip ardından düşük seviyeye kadar kullanmak kalibrasyonu iyileştirir.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details id="batarya-maliyeti">
+            <summary>LFP ve NMC bataryaların maliyeti nasıl farklılık gösterir?</summary>
+            <div class="answer">
+                <ul>
+                    <li><strong>LFP:</strong> Yaklaşık 98 $/kWh. Kobalt ve nikel gibi pahalı ve arz güvenliği sorunu olan metaller içermediğinden en düşük maliyetli batarya kimyasıdır.</li>
+                    <li><strong>NMC:</strong> Yaklaşık 113 $/kWh. Nikel ve kobalt içermesi maliyeti artırır. NCMA varyantında alüminyum katkısıyla kobalt oranı düşürülerek maliyet optimize edilmeye çalışılmaktadır.</li>
+                    <li>Batarya, elektrikli aracın en pahalı tek bileşenidir. Model Y'de toplam araç maliyetinin yaklaşık %30–40'ını oluşturur.</li>
+                    <li>LFP'nin düşük maliyeti, Standard Range modellerin daha uygun fiyatla sunulabilmesinin temel nedenlerinden biridir.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details id="neden-farkli-batarya">
+            <summary>Neden farklı modellerde farklı batarya kimyası kullanılıyor?</summary>
+            <div class="answer">
+                <ul>
+                    <li><strong>Maliyet:</strong> LFP daha ucuzdur (~98 $/kWh vs ~113 $/kWh). Giriş seviyesi modelin fiyatını düşürmek için Standard Range'de LFP tercih edilir.</li>
+                    <li><strong>Fiziksel sınırlama:</strong> LFP'nin enerji yoğunluğu düşük olduğundan Model Y'nin batarya bölmesi tamamen LFP ile doldurulsa bile Long Range menzile ulaşılamaz. Uzun menzil için NMC'nin daha yüksek enerji yoğunluğu gereklidir.</li>
+                    <li><strong>Ağırlık:</strong> LFP batarya paketi (~640 kg) NMC paketinden (~497 kg) yaklaşık 140 kg daha ağırdır. Performance modellerde bu fark yol tutuşunu ve hızlanmayı olumsuz etkiler.</li>
+                    <li><strong>Güvenlik:</strong> LFP'nin termal kaçak sıcaklığı (~270°C) NMC'den (~210°C) yüksektir. En çok satılan giriş modelde daha güvenli kimya stratejik olarak tercih edilir.</li>
+                    <li><strong>Kullanım profili uyumu:</strong> Standard Range alıcıları genellikle günlük şehir içi kullanıcılarıdır; LFP'nin %100 günlük şarj avantajından ve düşük maliyetinden faydalanır. Long Range/Performance alıcıları uzun menzil ve yüksek güç çıkışına ihtiyaç duyar; NMC bunu karşılar.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details id="yangin-riski">
+            <summary>Elektrikli araçlarda batarya yangın riski nedir?</summary>
+            <div class="answer">
+                <p><strong>Elektrikli araçlar benzinli araçlardan çok daha az yanar.</strong> İstatistiklere göre her 100.000 araçta yaklaşık 25 elektrikli araç yangını yaşanırken, benzinli araçlarda bu sayı yaklaşık 1.530'dur. Elektrikli araçların yangın riski benzinli araçlara göre kabaca 60 kat daha düşüktür.</p>
+
+                <p><strong>LFP ve NMC yangın riski karşılaştırması:</strong></p>
+                <ul>
+                    <li><strong>LFP daha güvenlidir.</strong> Termal kaçak (thermal runaway) sıcaklığı ~270°C, NMC'nin ~210°C'sine kıyasla belirgin şekilde yüksektir.</li>
+                    <li>LFP hücreleri termal kaçak sırasında çok az oksijen salar. Bu nedenle yangının komşu hücrelere yayılma olasılığı düşüktür.</li>
+                    <li>NMC hücreleri termal kaçak sırasında daha yüksek sıcaklığa ulaşır (~800°C vs LFP'nin ~620°C'si) ve daha fazla enerji açığa çıkarır.</li>
+                </ul>
+
+                <p><strong>Tesla'nın batarya güvenlik önlemleri:</strong></p>
+                <ul>
+                    <li>BMS her hücrenin sıcaklık ve voltajını sürekli izler.</li>
+                    <li>Sıvı soğutma sistemi bataryayı 20–30°C aralığında tutar.</li>
+                    <li>Modüller arasında yangın duvarları ve termal izolasyon bulunur.</li>
+                    <li>Hücre seviyesinde termal sigortalar aşırı ısınan hücreleri devreden çıkarır.</li>
+                    <li>Basınç tahliye ventilleri, termal kaçak durumunda sıcak gazları yolcu kabininden uzağa yönlendirir.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details id="lfp-kullanan-araclar">
+            <summary>LFP batarya kullanan başka araçlar hangileridir?</summary>
+            <div class="answer">
+                <ul>
+                    <li><strong>BYD:</strong> Tüm saf elektrikli BYD modelleri (Dolphin, Seal, Atto 3, Han EV, Tang EV, Song Plus EV vb.) Blade Battery adlı LFP teknolojisini kullanır.</li>
+                    <li><strong>Tesla:</strong> Model 3 Standard Range ve Model Y Standard Range (Çin üretimi) modellerinde CATL LFP hücreler kullanılır.</li>
+                    <li><strong>Rivian:</strong> R1S ve R1T'nin giriş seviyesi versiyonları LFP kullanır.</li>
+                    <li><strong>Ford:</strong> Mustang Mach-E giriş versiyonu LFP kullanır.</li>
+                    <li><strong>Stellantis:</strong> Bazı Citroen, Opel ve Peugeot modelleri Svolt LFP batarya kullanır.</li>
+                    <li><strong>NIO, Xpeng, Geely:</strong> Çeşitli modellerde LFP kullanılır.</li>
+                </ul>
+                <p>LFP yalnızca otomobillerde değil, enerji depolama sistemlerinde (Tesla Megapack, Powerwall), elektrikli otobüslerde, endüstriyel araçlarda ve deniz taşıtlarında da yaygın olarak kullanılır. 2025 itibarıyla LFP, nikel bazlı kimyaları geçerek küresel olarak en çok kullanılan EV batarya kimyası haline gelmiştir.</p>
+            </div>
+        </details>
+
+        <details id="nmc-kullanan-araclar">
+            <summary>NMC batarya kullanan başka araçlar hangileridir?</summary>
+            <div class="answer">
+                <ul>
+                    <li><strong>BMW:</strong> i4, iX, i5, i7 — Samsung SDI ve CATL NMC 811 hücreleri.</li>
+                    <li><strong>Hyundai / Kia:</strong> Ioniq 5, Ioniq 6, EV6, EV9 — NMC batarya.</li>
+                    <li><strong>Volkswagen:</strong> ID.3, ID.4, ID.5, ID.7 — NMC batarya.</li>
+                    <li><strong>Porsche:</strong> Taycan — NMC batarya.</li>
+                    <li><strong>Audi:</strong> e-tron GT, Q8 e-tron — NMC batarya.</li>
+                    <li><strong>Mercedes-Benz:</strong> EQE, EQS — NMC batarya.</li>
+                    <li><strong>Polestar:</strong> Polestar 2, 3, 4 — CATL NMC hücreleri.</li>
+                </ul>
+                <p>NMC, uzun menzil ve yüksek performans gerektiren premium segmentte baskın kimyadır. NMC 811 (nikel oranı yüksek) varyantı enerji yoğunluğu açısından en gelişmiş versiyondur ve çoğu yeni model bunu kullanır.</p>
+            </div>
+        </details>
+
+        <details id="diger-batarya-teknolojileri">
+            <summary>LFP ve NMC dışında hangi batarya teknolojileri var?</summary>
+            <div class="answer">
+                <p><strong>NCA (Nikel Kobalt Alüminyum):</strong></p>
+                <ul>
+                    <li>Neredeyse yalnızca Tesla tarafından ABD üretimli araçlarda kullanılır. Hücre tedarikçisi Panasonic'tir.</li>
+                    <li>En yüksek enerji yoğunluğuna sahip kimyadır (250–300 Wh/kg).</li>
+                    <li>Tesla Model S, Model X ve ABD üretimi Model 3/Y Long Range ve Performance modellerinde bulunur.</li>
+                    <li>Türkiye ve Avrupa'ya satılan Tesla'larda NCA değil NMC (LG Energy Solution) kullanılır.</li>
+                </ul>
+
+                <p><strong>LMFP (Lityum Mangan Demir Fosfat):</strong></p>
+                <ul>
+                    <li>LFP'nin geliştirilmiş versiyonu; mangan katkısıyla voltaj ve enerji yoğunluğu artırılmıştır.</li>
+                    <li>CATL'nin 2025'te Tesla Model 3/Y için Avrupa'da kullanmaya başladığı yeni nesil hücreler LMFP teknolojisi içerdiği düşünülmektedir.</li>
+                    <li>LFP'nin güvenlik ve ömür avantajlarını korurken menzili %15+ artırma potansiyeline sahiptir.</li>
+                </ul>
+
+                <p><strong>Sodyum-iyon:</strong></p>
+                <ul>
+                    <li>Lityum yerine sodyum kullanan yeni nesil kimya. Lityuma bağımlılığı ortadan kaldırır.</li>
+                    <li>İlk seri üretim araç: Changan Nevo A06 (2026, CATL Naxtra hücreleri, 500 km menzil).</li>
+                    <li>Soğuk havada LFP'den çok daha iyi performans gösterir (-40°C'de bile %90+ kapasite korunur).</li>
+                    <li>Enerji yoğunluğu henüz LFP'nin altındadır; şu an daha çok küçük araçlar ve enerji depolama için uygundur.</li>
+                </ul>
+
+                <p><strong>Katı hal (solid-state):</strong></p>
+                <ul>
+                    <li>Sıvı elektrolit yerine katı elektrolit kullanan gelecek nesil teknoloji. Daha yüksek enerji yoğunluğu, daha hızlı şarj ve daha düşük yangın riski vaat eder.</li>
+                    <li>Henüz seri üretim binek araçta kullanılmamaktadır. Mercedes-Benz ve BMW prototip aşamasında test etmektedir.</li>
+                    <li>Toyota 2026'da üretim başlatmayı, 2030'da seri üretime geçmeyi hedeflemektedir (621–750 mil menzil, 10 dakika şarj).</li>
+                </ul>
+            </div>
+        </details>
+
+        <!-- TODO: Şarj eğrisi grafiği eklenecek -->
+
+    </main>
+<!-- INCLUDE:footer -->

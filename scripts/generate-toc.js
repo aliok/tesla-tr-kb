@@ -58,10 +58,18 @@ function main() {
         return;
     }
 
-    const pageFiles = fs
+    // Custom page order; unlisted pages are appended alphabetically
+    // Custom page order; unlisted pages are appended alphabetically
+    const PAGE_ORDER = ["acil-durum.html", "modeller.html", "batarya.html"];
+
+    const allFiles = fs
         .readdirSync(PAGES_DIR)
-        .filter((f) => f.endsWith(".html"))
-        .sort();
+        .filter((f) => f.endsWith(".html"));
+
+    const pageFiles = [
+        ...PAGE_ORDER.filter((f) => allFiles.includes(f)),
+        ...allFiles.filter((f) => !PAGE_ORDER.includes(f)).sort(),
+    ];
 
     if (pageFiles.length === 0) {
         console.log("No page files found, skipping TOC generation.");

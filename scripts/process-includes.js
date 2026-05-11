@@ -2,9 +2,9 @@ const fs = require('fs');
 const path = require('path');
 
 const distDir = path.join(__dirname, '..', 'dist');
-const partialsDir = path.join(distDir, 'partials');
+const partialsDir = path.join(__dirname, '..', 'src', 'partials');
 
-// 1. Read all partial files
+// 1. Read all partial files from src/partials/ (not dist/)
 const partials = {};
 for (const file of fs.readdirSync(partialsDir)) {
     if (file.endsWith('.html')) {
@@ -15,12 +15,12 @@ for (const file of fs.readdirSync(partialsDir)) {
 
 console.log(`Loaded partials: ${Object.keys(partials).join(', ')}`);
 
-// 2. Find all HTML files in dist (recursively, skip partials dir)
+// 2. Find all HTML files in dist (recursively)
 function findHtmlFiles(dir) {
     const results = [];
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
         const fullPath = path.join(dir, entry.name);
-        if (entry.isDirectory() && entry.name !== 'partials') {
+        if (entry.isDirectory()) {
             results.push(...findHtmlFiles(fullPath));
         } else if (entry.isFile() && entry.name.endsWith('.html')) {
             results.push(fullPath);
@@ -52,7 +52,3 @@ for (const filePath of htmlFiles) {
         console.log(`Processed: ${path.relative(distDir, filePath)}`);
     }
 }
-
-// 4. Delete partials directory from dist (not needed in output)
-fs.rmSync(partialsDir, { recursive: true });
-console.log('Removed dist/partials/');

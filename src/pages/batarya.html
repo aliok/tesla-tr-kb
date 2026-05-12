@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Batarya - Tesla TR Bilgi Bankası</title>
     <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
 <body>
 <!-- INCLUDE:header-page -->
@@ -286,7 +287,223 @@
             </div>
         </details>
 
-        <!-- TODO: Şarj eğrisi grafiği eklenecek -->
+        <details id="menzil-degisimi">
+            <summary>Batarya menzili zamanla nasıl değişiyor? (Topluluk verileri)</summary>
+            <div class="answer">
+                <p>Aşağıdaki grafikler, Tesla Model Y Legacy AWD sahiplerinin %100 şarjda ekranda gördükleri menzil değerlerini göstermektedir. Veriler topluluk üyeleri tarafından paylaşılmıştır. Kesikli çizgi WLTP menzil değerini, düz çizgi ise verilerin genel eğilimini (lineer regresyon) gösterir.</p>
+
+                <h4 style="margin-top:16px;margin-bottom:8px;">Model Y Legacy Performance (32 araç)</h4>
+                <div style="position:relative;width:100%;max-width:700px;">
+                    <canvas id="chart-perf"></canvas>
+                </div>
+                <p style="margin-top:8px;">WLTP menzili 514 km olmasına rağmen ekranda gösterilen değerler 418–462 km arasında. 148.000 km yapan araçta bile gösterilen menzil 418 km; bu, WLTP değerine göre yaklaşık %19 düşük görünse de gerçek batarya kaybı bundan çok daha azdır. Eğilim çizgisi 100.000 km'de yaklaşık %5–7 düşüş göstermektedir. Performance modelin 21" jantları ve kısa profilli lastikleri yuvarlanma direncini artırdığından ekran menzili Long Range'e göre daha düşüktür.</p>
+
+                <h4 style="margin-top:20px;margin-bottom:8px;">Model Y Legacy Long Range AWD — 19" Jant (41 araç)</h4>
+                <div style="position:relative;width:100%;max-width:700px;">
+                    <canvas id="chart-lr19"></canvas>
+                </div>
+                <p style="margin-top:8px;">En geniş veri setine sahip grup. 0 km'deki araç 525 km gösterirken, 84.500 km'deki araç 484 km gösteriyor. Eğilim çizgisi oldukça düz ve 80.000 km boyunca yaklaşık %6–8 düşüş gösteriyor. 19" Gemini jantların düşük yuvarlanma direnci sayesinde ekran menzili WLTP değerine (533 km) en yakın olan grup bu. Veriler dar bir bantta toplanmış durumda; bu, araçlar arasında tutarlı bir batarya performansına işaret ediyor.</p>
+
+                <h4 style="margin-top:20px;margin-bottom:8px;">Model Y Legacy Long Range AWD — 20" Jant (15 araç)</h4>
+                <div style="position:relative;width:100%;max-width:700px;">
+                    <canvas id="chart-lr20"></canvas>
+                </div>
+                <p style="margin-top:8px;">19" jantlı araçlarla aynı batarya ve motora sahip olmasına rağmen ekran menzilleri belirgin şekilde düşük. 122.000 km'deki araç 468 km gösteriyor. 20" jantlar daha geniş ve kısa profilli lastik kullandığından yuvarlanma direnci artar ve ekran menzili düşer. Eğilim çizgisi 100.000 km'de yaklaşık %5–6 düşüş gösteriyor. Düşüş oranı 19" jantlı araçlarla benzer — jant farkı sabit bir ofset yaratıyor, degradasyon hızını değiştirmiyor.</p>
+
+                <p style="margin-top:16px;font-size:0.85rem;"><strong>Not:</strong> Ekranda gösterilen menzil her zaman WLTP değerinden düşüktür; bu normal bir durumdur ve batarya kaybı anlamına gelmez. WLTP testi sabit sıcaklık, düz yol ve düşük hız gibi ideal koşullarda yapılır. Gerçek sürüşte klima, yokuş, rüzgar, lastik basıncı ve sürüş stili menzili etkiler. Ayrıca BMS kalibrasyonu da gösterilen değeri değiştirebilir.</p>
+
+                <script>
+                (function() {
+                    var initialized = false;
+
+                    function linearRegression(data) {
+                        var n = data.length;
+                        var sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+                        for (var i = 0; i < n; i++) {
+                            sumX += data[i].x;
+                            sumY += data[i].y;
+                            sumXY += data[i].x * data[i].y;
+                            sumX2 += data[i].x * data[i].x;
+                        }
+                        var slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+                        var intercept = (sumY - slope * sumX) / n;
+                        return { slope: slope, intercept: intercept };
+                    }
+
+                    function trendLineData(data) {
+                        var reg = linearRegression(data);
+                        var xs = data.map(function(d) { return d.x; });
+                        var minX = Math.min.apply(null, xs);
+                        var maxX = Math.max.apply(null, xs);
+                        return [
+                            { x: minX, y: Math.round(reg.slope * minX + reg.intercept) },
+                            { x: maxX, y: Math.round(reg.slope * maxX + reg.intercept) }
+                        ];
+                    }
+
+                    var isMobile = window.innerWidth < 600;
+
+                    function createChart(canvasId, label, data, color, wltpValue, xMax) {
+                        var canvas = document.getElementById(canvasId);
+                        var trend = trendLineData(data);
+                        new Chart(canvas, {
+                            type: 'scatter',
+                            data: {
+                                datasets: [
+                                    {
+                                        label: label,
+                                        data: data,
+                                        backgroundColor: color.replace('1)', '0.7)'),
+                                        borderColor: color,
+                                        pointRadius: isMobile ? 5 : 4,
+                                        pointHoverRadius: isMobile ? 8 : 6,
+                                        pointHitRadius: isMobile ? 20 : 10
+                                    },
+                                    {
+                                        label: 'Eğilim',
+                                        type: 'line',
+                                        data: trend,
+                                        borderColor: color.replace('1)', '0.5)'),
+                                        borderWidth: 2,
+                                        pointRadius: 0,
+                                        pointHoverRadius: 0,
+                                        fill: false
+                                    },
+                                    {
+                                        label: 'WLTP (' + wltpValue + ' km)',
+                                        type: 'line',
+                                        data: [{x:0,y:wltpValue},{x:xMax,y:wltpValue}],
+                                        borderColor: color.replace('1)', '0.3)'),
+                                        borderDash: [6, 4],
+                                        borderWidth: 1.5,
+                                        pointRadius: 0,
+                                        pointHoverRadius: 0,
+                                        fill: false
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: true,
+                                aspectRatio: isMobile ? 1.2 : 2,
+                                interaction: {
+                                    mode: 'nearest',
+                                    intersect: false,
+                                    axis: 'xy'
+                                },
+                                plugins: {
+                                    legend: {
+                                        position: 'bottom',
+                                        labels: {
+                                            usePointStyle: true,
+                                            padding: isMobile ? 8 : 12,
+                                            font: { size: isMobile ? 10 : 11 }
+                                        }
+                                    },
+                                    tooltip: {
+                                        filter: function(item) {
+                                            return item.datasetIndex === 0;
+                                        },
+                                        titleFont: { size: isMobile ? 12 : 13 },
+                                        bodyFont: { size: isMobile ? 12 : 13 },
+                                        padding: isMobile ? 10 : 8,
+                                        callbacks: {
+                                            title: function() { return ''; },
+                                            label: function(ctx) {
+                                                return ctx.parsed.y + ' km @ ' +
+                                                    ctx.parsed.x.toLocaleString('tr-TR') + ' km';
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        title: {
+                                            display: true,
+                                            text: isMobile ? 'km' : 'Kilometre',
+                                            font: { size: isMobile ? 11 : 12 }
+                                        },
+                                        ticks: {
+                                            callback: function(v) {
+                                                return (v / 1000) + 'k';
+                                            },
+                                            font: { size: isMobile ? 10 : 11 },
+                                            maxTicksLimit: isMobile ? 5 : 8
+                                        },
+                                        min: 0,
+                                        max: xMax
+                                    },
+                                    y: {
+                                        title: {
+                                            display: true,
+                                            text: isMobile ? 'Menzil (km)' : 'Gösterilen menzil (km)',
+                                            font: { size: isMobile ? 11 : 12 }
+                                        },
+                                        ticks: {
+                                            font: { size: isMobile ? 10 : 11 },
+                                            maxTicksLimit: isMobile ? 6 : 8
+                                        },
+                                        min: 400,
+                                        max: 550
+                                    }
+                                }
+                            }
+                        });
+                    }
+
+                    function initCharts() {
+                        if (initialized) return;
+                        initialized = true;
+
+                        var perfData = [
+                            {x:3000,y:454},{x:7000,y:454},{x:9000,y:462},{x:23000,y:459},
+                            {x:25000,y:452},{x:25000,y:446},{x:30000,y:455},{x:31000,y:456},
+                            {x:32000,y:444},{x:33000,y:450},{x:34000,y:444},{x:35000,y:454},
+                            {x:36000,y:451},{x:37000,y:444},{x:39000,y:446},{x:42000,y:437},
+                            {x:44000,y:439},{x:50000,y:445},{x:51000,y:439},{x:51000,y:436},
+                            {x:53000,y:438},{x:54500,y:437},{x:54500,y:439},{x:55000,y:436},
+                            {x:65000,y:443},{x:67000,y:430},{x:70000,y:427},{x:77000,y:436},
+                            {x:78000,y:436},{x:87000,y:435},{x:93000,y:434},{x:148000,y:418}
+                        ];
+
+                        var lr19Data = [
+                            {x:0,y:525},{x:16000,y:500},{x:20000,y:511},{x:23000,y:498},
+                            {x:25000,y:509},{x:26000,y:513},{x:27000,y:498},{x:28000,y:490},
+                            {x:30000,y:496},{x:30000,y:500},{x:30000,y:499},{x:30000,y:495},
+                            {x:31000,y:495},{x:33000,y:491},{x:34000,y:495},{x:35000,y:500},
+                            {x:37500,y:495},{x:38000,y:495},{x:39000,y:495},{x:40000,y:489},
+                            {x:40000,y:487},{x:42500,y:498},{x:45000,y:497},{x:45000,y:494},
+                            {x:45000,y:491},{x:46000,y:490},{x:46000,y:489},{x:47000,y:495},
+                            {x:47000,y:507},{x:47000,y:483},{x:49900,y:485},{x:51000,y:486},
+                            {x:55000,y:487},{x:57000,y:484},{x:60000,y:489},{x:63000,y:485},
+                            {x:70000,y:484},{x:73000,y:493},{x:74000,y:492},{x:78000,y:491},
+                            {x:84500,y:484}
+                        ];
+
+                        var lr20Data = [
+                            {x:23315,y:493},{x:28000,y:498},{x:29000,y:494},{x:37000,y:483},
+                            {x:42000,y:497},{x:45000,y:492},{x:53000,y:485},{x:54000,y:493},
+                            {x:56000,y:498},{x:63000,y:486},{x:80000,y:481},{x:85000,y:481},
+                            {x:91000,y:479},{x:102000,y:474},{x:122000,y:468}
+                        ];
+
+                        createChart('chart-perf', 'Performance', perfData, 'rgba(220, 38, 38, 1)', 514, 155000);
+                        createChart('chart-lr19', 'Long Range AWD 19"', lr19Data, 'rgba(37, 99, 235, 1)', 533, 90000);
+                        createChart('chart-lr20', 'Long Range AWD 20"', lr20Data, 'rgba(22, 163, 74, 1)', 533, 130000);
+                    }
+
+                    var details = document.getElementById('menzil-degisimi');
+                    if (details.hasAttribute('open')) {
+                        initCharts();
+                    } else {
+                        details.addEventListener('toggle', function() {
+                            if (details.open) initCharts();
+                        });
+                    }
+                })();
+                </script>
+            </div>
+        </details>
 
     </main>
 <!-- INCLUDE:footer -->

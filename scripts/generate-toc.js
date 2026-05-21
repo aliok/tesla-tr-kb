@@ -60,7 +60,7 @@ function main() {
 
     // Custom page order; unlisted pages are appended alphabetically
     // Custom page order; unlisted pages are appended alphabetically
-    const PAGE_ORDER = ["acil-durum.html", "modeller.html", "batarya.html"];
+    const PAGE_ORDER = ["acil-durum.html", "modeller.html", "batarya.html", "satin-alma.html"];
 
     const allFiles = fs
         .readdirSync(PAGES_DIR)
